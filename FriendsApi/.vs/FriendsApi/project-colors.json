@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "e4e2c29d-27bd-4275-8840-5b0f498eed49": {
+      "ProjectGuid": "e4e2c29d-27bd-4275-8840-5b0f498eed49",
+      "DisplayName": "FriendsApi",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
