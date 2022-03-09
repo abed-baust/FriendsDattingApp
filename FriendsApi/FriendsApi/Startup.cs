@@ -1,4 +1,5 @@
 using FriendsApi.Data;
+using FriendsApi.Extensions;
 using FriendsApi.Interface;
 using FriendsApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,26 +34,15 @@ namespace FriendsApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ITokenService, TokenService>();
-            services.AddDbContext<DataContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("FriendsDb")));
+            services.AddApplicationServices(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "FriendsApi", Version = "v1" });
             });
             services.AddCors();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"])),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                    };
-                });
+            services.AddIdentityServices(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
