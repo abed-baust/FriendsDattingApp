@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace FriendsApi.Controllers
 {
@@ -35,9 +36,18 @@ namespace FriendsApi.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetServerError()
         {
-            var thing = _context.Users.Find(-1);
-            var thingToReturn = thing.ToString();
-            return thingToReturn;
+            try
+            {
+                var thing = _context.Users.Find(-1);
+                var thingToReturn = thing.ToString();
+                return thingToReturn;
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Computer says no!");
+            }
+            
         }
 
         
