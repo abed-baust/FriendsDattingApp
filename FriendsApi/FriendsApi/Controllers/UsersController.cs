@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace FriendsApi.Controllers
 {
+    [Authorize]
     public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
@@ -26,7 +27,7 @@ namespace FriendsApi.Controllers
         }
 
         //api//users/3
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {

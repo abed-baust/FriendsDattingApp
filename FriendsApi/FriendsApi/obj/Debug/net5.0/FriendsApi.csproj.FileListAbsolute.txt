@@ -86,3 +86,4 @@ D:\Friends ASP .Net Project\FriendsDattingApp\FriendsApi\FriendsApi\obj\Debug\ne
 D:\Friends ASP .Net Project\FriendsDattingApp\FriendsApi\FriendsApi\obj\Debug\net5.0\FriendsApi.pdb
 D:\Friends ASP .Net Project\FriendsDattingApp\FriendsApi\FriendsApi\obj\Debug\net5.0\FriendsApi.genruntimeconfig.cache
 D:\Friends ASP .Net Project\FriendsDattingApp\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Friends ASP .Net Project\FriendsDattingApp\FriendsApi\FriendsApi\bin\Debug\net5.0\Data\UserSeedData.json
