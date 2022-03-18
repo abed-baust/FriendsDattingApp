@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Friends ASP .Net Project\\FriendsDattingApp\\FriendsApi\\FriendsApi\\FriendsApi.csproj": {}
+    "C:\\Users\\Local Admin\\Desktop\\Abed\\FriendsDattingApp\\FriendsApi\\FriendsApi\\FriendsApi.csproj": {}
   },
   "projects": {
-    "D:\\Friends ASP .Net Project\\FriendsDattingApp\\FriendsApi\\FriendsApi\\FriendsApi.csproj": {
+    "C:\\Users\\Local Admin\\Desktop\\Abed\\FriendsDattingApp\\FriendsApi\\FriendsApi\\FriendsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Friends ASP .Net Project\\FriendsDattingApp\\FriendsApi\\FriendsApi\\FriendsApi.csproj",
+        "projectUniqueName": "C:\\Users\\Local Admin\\Desktop\\Abed\\FriendsDattingApp\\FriendsApi\\FriendsApi\\FriendsApi.csproj",
         "projectName": "FriendsApi",
-        "projectPath": "D:\\Friends ASP .Net Project\\FriendsDattingApp\\FriendsApi\\FriendsApi\\FriendsApi.csproj",
-        "packagesPath": "C:\\Users\\abedb\\.nuget\\packages\\",
-        "outputPath": "D:\\Friends ASP .Net Project\\FriendsDattingApp\\FriendsApi\\FriendsApi\\obj\\",
+        "projectPath": "C:\\Users\\Local Admin\\Desktop\\Abed\\FriendsDattingApp\\FriendsApi\\FriendsApi\\FriendsApi.csproj",
+        "packagesPath": "C:\\Users\\Local Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Local Admin\\Desktop\\Abed\\FriendsDattingApp\\FriendsApi\\FriendsApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\abedb\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Local Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://www.nuget.org/api/v2": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -87,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
