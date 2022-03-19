@@ -8,7 +8,6 @@ namespace FriendsApi.Models
     {
         public int Id { get; set; }
         public string userName { get; set; }
-        //public object UserName { get; internal set; }
         public byte[] passwordHash { get; set; }
         public byte[] passwordSalt { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -22,12 +21,5 @@ namespace FriendsApi.Models
         public string City { get; set; }
         public string Country { get; set; }
         public ICollection<Photo> Photos { get; set; }
-
-        //public int GetAge()
-        //{
-        //    return DateOfBirth.CalculateAge();
-        //}
-
-
     }
 }
