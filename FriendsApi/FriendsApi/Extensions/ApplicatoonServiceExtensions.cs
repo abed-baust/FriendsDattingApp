@@ -1,4 +1,5 @@
 ﻿using FriendsApi.Data;
+using FriendsApi.Helpers;
 using FriendsApi.Interface;
 using FriendsApi.Services;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,8 @@ namespace FriendsApi.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(
                 options => options.UseSqlServer(config.GetConnectionString("FriendsDb")));
             return services;
