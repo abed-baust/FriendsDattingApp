@@ -42,7 +42,7 @@ namespace FriendsApi.Controllers
         }
 
         [HttpPut]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
             var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -53,5 +53,7 @@ namespace FriendsApi.Controllers
             if (await _userRepository.SaveAllAsync()) return NoContent();
             return BadRequest("Failed to Update user!");
         }
+
+
     }
 }
