@@ -1,10 +1,12 @@
-﻿using FriendsApi.Data;
+﻿using AutoMapper;
+using FriendsApi.Data;
 using FriendsApi.DTOs;
 using FriendsApi.Interface;
 using FriendsApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +17,12 @@ namespace FriendsApi.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
             _context = context;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -26,21 +30,22 @@ namespace FriendsApi.Controllers
         {
             if(await UserExists(registerDto.userName))
                 return BadRequest("User Name is Taken!");
+            var user = _mapper.Map<AppUser>(registerDto);
 
             using var hmac = new HMACSHA512();
-            var user = new AppUser()
-            {
-                userName = registerDto.userName.ToLower(),
-                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.password)),
-                passwordSalt = hmac.Key
-            };
+
+            user.userName = registerDto.userName.ToLower();
+            user.passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.password));
+            user.passwordSalt = hmac.Key;
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             return new UserDto
             {
                 UserName = user.userName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                KnownAs = user.KnownAs
             };
         }
 
@@ -58,7 +63,10 @@ namespace FriendsApi.Controllers
             return new UserDto
             {
                 UserName = user.userName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                PhotoUrl= user.Photos.FirstOrDefault(x=> x.IsMain)?.Url,
+                KnownAs = user.KnownAs
+                
             };
         }
 
