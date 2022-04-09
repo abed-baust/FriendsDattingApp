@@ -2,6 +2,7 @@
 using FriendsApi.Data;
 using FriendsApi.DTOs;
 using FriendsApi.Extensions;
+using FriendsApi.Helpers;
 using FriendsApi.Interface;
 using FriendsApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -30,9 +31,11 @@ namespace FriendsApi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _userRepository.GetMembersAsync();
+            var users = await _userRepository.GetMembersAsync(userParams);
+            Response.AddPaginationHeader(users.CurrentPage,users.PageSize,
+                users.TotalCount,users.TotalCount);
             return Ok(users);
         }
 

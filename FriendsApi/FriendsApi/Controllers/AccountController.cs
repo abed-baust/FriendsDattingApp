@@ -30,6 +30,7 @@ namespace FriendsApi.Controllers
         {
             if(await UserExists(registerDto.userName))
                 return BadRequest("User Name is Taken!");
+
             var user = _mapper.Map<AppUser>(registerDto);
 
             using var hmac = new HMACSHA512();
@@ -64,7 +65,7 @@ namespace FriendsApi.Controllers
             {
                 UserName = user.userName,
                 Token = _tokenService.CreateToken(user),
-                PhotoUrl= user.Photos.FirstOrDefault(x=> x.IsMain)?.Url,
+                PhotoUrl= user.Photos?.FirstOrDefault(x=> x.IsMain)?.Url,
                 KnownAs = user.KnownAs
                 
             };
