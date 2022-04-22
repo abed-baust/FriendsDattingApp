@@ -1,7 +1,11 @@
 ﻿using FriendsApi.DTOs;
+using FriendsApi.Extensions;
+using FriendsApi.Helpers;
 using FriendsApi.Interface;
 using FriendsApi.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FriendsApi.Data
@@ -14,19 +18,44 @@ namespace FriendsApi.Data
             _context = context;
         }
 
-        public Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
+        public async Task<UserLike> GetUserLike(int sourceUserId, int likedUserId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Likes.FindAsync(sourceUserId, likedUserId);
         }
 
-        public Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
+        public async Task<PagedList<LikeDto>> GetUserLikes(LikesParams likesParams)
         {
-            throw new System.NotImplementedException();
+           var users= _context.Users.OrderBy(u=> u.userName).AsQueryable();
+            var likes = _context.Likes.AsQueryable(); 
+            if(likesParams.predicate == "liked")
+            {
+                likes = likes.Where(like => like.SourceUserId == likesParams.userId);
+                users = likes.Select(like => like.LikedUser);
+            }
+            if(likesParams.predicate == "likedBy")
+            {
+                likes = likes.Where(like => like.LikedUserId == likesParams.userId);
+                users = likes.Select(like => like.SourceUser);
+            }
+
+            var likedUsers = users.Select(user => new LikeDto
+            {
+                UserName = user.userName,
+                KnownAs = user.KnownAs,
+                Age = user.DateOfBirth.CalculateAge(),
+                PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain).Url,
+                City = user.City,
+                Id = user.Id,
+            });
+
+            return await PagedList<LikeDto>.CreateAsync(likedUsers,likesParams.PageNumber,likesParams.PageSize);
         }
 
-        public Task<AppUser> GetUserWithLikes(int userId)
+        public async Task<AppUser> GetUserWithLikes(int userId)
         {
-            throw new System.NotImplementedException();
+            return await _context.Users
+                .Include(x=>x.LikedUsers)
+                .FirstOrDefaultAsync(x=>x.Id == userId);
         }
     }
 }

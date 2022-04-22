@@ -26,7 +26,7 @@ namespace FriendsApi.Data
                 .OnDelete(DeleteBehavior.NoAction);  
             
             builder.Entity<UserLike>()
-                .HasOne(s=>s.LikeUser)
+                .HasOne(s=>s.LikedUser)
                 .WithMany(l=> l.LikedByUsers)
                 .HasForeignKey(s=>s.LikedUserId)
                 .OnDelete(DeleteBehavior.NoAction);
