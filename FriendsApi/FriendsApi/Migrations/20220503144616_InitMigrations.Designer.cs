@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FriendsApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220316144953_init2")]
-    partial class init2
+    [Migration("20220503144616_InitMigrations")]
+    partial class InitMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,52 @@ namespace FriendsApi.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("FriendsApi.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateRead")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("MessageSent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RecepientId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RecipientDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("RecipientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RecipientUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SenderDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SenderUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("FriendsApi.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -98,6 +144,39 @@ namespace FriendsApi.Migrations
                     b.ToTable("Photos");
                 });
 
+            modelBuilder.Entity("FriendsApi.Models.UserLike", b =>
+                {
+                    b.Property<int>("SourceUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LikedUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SourceUserId", "LikedUserId");
+
+                    b.HasIndex("LikedUserId");
+
+                    b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("FriendsApi.Models.Message", b =>
+                {
+                    b.HasOne("FriendsApi.Models.AppUser", "Recipient")
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("FriendsApi.Models.AppUser", "Sender")
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("FriendsApi.Models.Photo", b =>
                 {
                     b.HasOne("FriendsApi.Models.AppUser", "AppUser")
@@ -109,8 +188,35 @@ namespace FriendsApi.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("FriendsApi.Models.UserLike", b =>
+                {
+                    b.HasOne("FriendsApi.Models.AppUser", "LikedUser")
+                        .WithMany("LikedByUsers")
+                        .HasForeignKey("LikedUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("FriendsApi.Models.AppUser", "SourceUser")
+                        .WithMany("LikedUsers")
+                        .HasForeignKey("SourceUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("LikedUser");
+
+                    b.Navigation("SourceUser");
+                });
+
             modelBuilder.Entity("FriendsApi.Models.AppUser", b =>
                 {
+                    b.Navigation("LikedByUsers");
+
+                    b.Navigation("LikedUsers");
+
+                    b.Navigation("MessagesReceived");
+
+                    b.Navigation("MessagesSent");
+
                     b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618

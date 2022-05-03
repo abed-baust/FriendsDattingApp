@@ -80,7 +80,7 @@ namespace FriendsApi.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateRead")
+                    b.Property<DateTime?>("DateRead")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("MessageSent")

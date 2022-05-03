@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using FriendsApi.DTOs;
 using FriendsApi.Extensions;
+using FriendsApi.Helpers;
 using FriendsApi.Interface;
 using FriendsApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FriendsApi.Controllers
@@ -41,12 +45,24 @@ namespace FriendsApi.Controllers
                 Recipient = recipient,
                 SenderUserName = sender.userName,
                 RecipientUserName = recipient.userName,
-                Content = createMessageDto.Content
-            };
+                Content = createMessageDto.Content,
+        };
             _messageRepository.AddMessage(message);
 
             if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
             return BadRequest("Failed to send Message.");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] 
+        MessageParams messageParams)
+        {
+            messageParams.UserName = User.GetUserName();
+            var messages = await _messageRepository.GetMessagesForUser(messageParams);
+
+            Response.AddPaginationHeader(messages.CurrentPage, messages.PageSize,
+                messages.TotalCount, messages.TotalPage);
+            return messages;
         }
 
 
