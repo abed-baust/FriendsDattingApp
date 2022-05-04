@@ -34,7 +34,10 @@ namespace FriendsApi.Data
 
         public async Task<Message> GetMessage(int id)
         {
-            return await _context.Messages.FindAsync(id);
+            return await _context.Messages
+                .Include(u=> u.Sender)
+                .Include(u=> u.Recipient)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
@@ -44,10 +47,12 @@ namespace FriendsApi.Data
                 .AsQueryable();
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.Recipient.userName == messageParams.UserName),
-                "Outbox" => query.Where(u => u.Sender.userName == messageParams.UserName),
+                "Inbox" => query.Where(u => u.Recipient.userName == messageParams.UserName 
+                && u.RecipientDeleted==false),
+                "Outbox" => query.Where(u => u.Sender.userName == messageParams.UserName 
+                && u.SenderDeleted==false),
                 _ => query.Where(u => u.Recipient.userName == messageParams.UserName
-                 && u.DateRead == null)
+                 && u.DateRead == null && u.RecipientDeleted==false)
             };
 
             var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
@@ -62,9 +67,11 @@ namespace FriendsApi.Data
                 .Include(u => u.Sender).ThenInclude(p => p.Photos)
                 .Include(u => u.Recipient).ThenInclude(p => p.Photos)
                 .Where(m => m.Recipient.userName == currentUserName
+                && m.RecipientDeleted==false
                 && m.Sender.userName == recipientUserName
                 || m.Recipient.userName == recipientUserName
                 && m.Sender.userName == currentUserName
+                && m.SenderDeleted==false
 
                 ).OrderBy(m => m.MessageSent)
                 .ToListAsync();

@@ -73,6 +73,22 @@ namespace FriendsApi.Controllers
             return Ok(await _messageRepository.GetMessageThread(currentUserName, username));
         }
 
+        [HttpDelete("{id}")]
+
+        public async Task<ActionResult> DeleteMessage(int id)
+        {
+            var userName = User.GetUserName();
+            var message = await _messageRepository.GetMessage(id);
+            if(message.Sender.userName!=userName && message.Recipient.userName!=userName)
+                return Unauthorized();
+            if(message.Sender.userName==userName) message.SenderDeleted = true;
+            if(message.Recipient.userName==userName) message.RecipientDeleted = true;
+            if (message.SenderDeleted && message.RecipientDeleted)
+                _messageRepository.DeleteMessage(message);
+            if(await _messageRepository.SaveAllAsync())return Ok();
+            return BadRequest("Problem deleting the message");
+
+        }
 
 
     }
