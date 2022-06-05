@@ -1,6 +1,11 @@
-﻿namespace FriendsApi.Models
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
+
+namespace FriendsApi.Models
 {
-    public class AppRole
+    public class AppRole : IdentityRole<int>
     {
+        public ICollection<AppUserRole> UserRoles { get; set; }
+
     }
 }

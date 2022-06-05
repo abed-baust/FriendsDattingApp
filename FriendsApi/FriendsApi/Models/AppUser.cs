@@ -1,10 +1,11 @@
 ﻿using FriendsApi.Extensions;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 
 namespace FriendsApi.Models
 {
-    public class AppUser 
+    public class AppUser : IdentityUser<int>
     {
         public int Id { get; set; }
         public string userName { get; set; }
@@ -25,6 +26,7 @@ namespace FriendsApi.Models
         public ICollection<UserLike> LikedUsers { get; set; }
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
+        public ICollection<AppUserRole> UserRoles { get; set; }
 
     }
 }

@@ -18,11 +18,11 @@ namespace FriendsApi.Data
             var users =JsonSerializer.Deserialize<List<AppUser>> (userData);
             foreach (var user in users)
             {
-                using var hmac = new HMACSHA512();
+                //using var hmac = new HMACSHA512();
                 
                 user.userName = user.userName.ToLower();
-                user.passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
-                user.passwordSalt = hmac.Key;
+                //user.passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
+                //user.passwordSalt = hmac.Key;
 
 
                 context.Users.Add(user);

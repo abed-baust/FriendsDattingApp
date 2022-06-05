@@ -1,11 +1,14 @@
 ﻿using FriendsApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FriendsApi.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<AppUser, AppRole, int, IdentityUserClaim<int>, AppUserRole,
+        IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public DataContext(DbContextOptions<DataContext> options):base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
 
@@ -13,33 +16,45 @@ namespace FriendsApi.Data
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
 
-        protected override void OnModelCreating (ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating (builder);
+            base.OnModelCreating(builder);
+
+            builder.Entity<AppUser>()
+                .HasMany(ur => ur.UserRoles)
+                .WithOne(u => u.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
+
+            builder.Entity<AppRole>()
+                    .HasMany(ur => ur.UserRoles)
+                    .WithOne(u => u.Role)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
 
             builder.Entity<UserLike>()
                 .HasKey(k => new { k.SourceUserId, k.LikedUserId });
 
             builder.Entity<UserLike>()
-                .HasOne(s=>s.SourceUser)
-                .WithMany(l=>l.LikedUsers)
-                .HasForeignKey(s=>s.SourceUserId)
-                .OnDelete(DeleteBehavior.NoAction);  
-            
+                .HasOne(s => s.SourceUser)
+                .WithMany(l => l.LikedUsers)
+                .HasForeignKey(s => s.SourceUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.Entity<UserLike>()
-                .HasOne(s=>s.LikedUser)
-                .WithMany(l=> l.LikedByUsers)
-                .HasForeignKey(s=>s.LikedUserId)
+                .HasOne(s => s.LikedUser)
+                .WithMany(l => l.LikedByUsers)
+                .HasForeignKey(s => s.LikedUserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Message>()
                 .HasOne(u => u.Recipient)
-                .WithMany(m=> m.MessagesReceived)
-                .OnDelete(DeleteBehavior.NoAction);            
-            
+                .WithMany(m => m.MessagesReceived)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.Entity<Message>()
                 .HasOne(u => u.Sender)
-                .WithMany(m=> m.MessagesSent)
+                .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.NoAction);
 
         }

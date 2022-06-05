@@ -33,11 +33,11 @@ namespace FriendsApi.Controllers
 
             var user = _mapper.Map<AppUser>(registerDto);
 
-            using var hmac = new HMACSHA512();
+            //using var hmac = new HMACSHA512();
 
             user.userName = registerDto.userName.ToLower();
-            user.passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.password));
-            user.passwordSalt = hmac.Key;
+            //user.passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.password));
+            //user.passwordSalt = hmac.Key;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -56,12 +56,12 @@ namespace FriendsApi.Controllers
         {
             var user = await _context.Users.SingleOrDefaultAsync(x=>x.userName==loginDto.userName);
             if(user==null) return Unauthorized("Invalid username");
-            using var hmac=new HMACSHA512(user.passwordSalt);
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password));
-            for(int i = 0; i< computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.passwordHash[i]) return Unauthorized("Invalid password");
-            }
+            //using var hmac=new HMACSHA512(user.passwordSalt);
+            //var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.password));
+            //for(int i = 0; i< computedHash.Length; i++)
+            //{
+            //    if (computedHash[i] != user.passwordHash[i]) return Unauthorized("Invalid password");
+            //}
             return new UserDto
             {
                 UserName = user.userName,
