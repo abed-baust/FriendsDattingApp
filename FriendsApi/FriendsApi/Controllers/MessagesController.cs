@@ -43,8 +43,8 @@ namespace FriendsApi.Controllers
             {
                 Sender = sender,
                 Recipient = recipient,
-                SenderUserName = sender.userName,
-                RecipientUserName = recipient.userName,
+                SenderUserName = sender.UserName,
+                RecipientUserName = recipient.UserName,
                 Content = createMessageDto.Content,
         };
             _messageRepository.AddMessage(message);
@@ -79,10 +79,10 @@ namespace FriendsApi.Controllers
         {
             var userName = User.GetUserName();
             var message = await _messageRepository.GetMessage(id);
-            if(message.Sender.userName!=userName && message.Recipient.userName!=userName)
+            if(message.Sender.UserName != userName && message.Recipient.UserName != userName)
                 return Unauthorized();
-            if(message.Sender.userName==userName) message.SenderDeleted = true;
-            if(message.Recipient.userName==userName) message.RecipientDeleted = true;
+            if(message.Sender.UserName == userName) message.SenderDeleted = true;
+            if(message.Recipient.UserName == userName) message.RecipientDeleted = true;
             if (message.SenderDeleted && message.RecipientDeleted)
                 _messageRepository.DeleteMessage(message);
             if(await _messageRepository.SaveAllAsync())return Ok();

@@ -34,7 +34,7 @@ namespace FriendsApi.Controllers
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
             var user = await _userRepository.GetUserByNameAsync(User.GetUserName());
-            userParams.CurrentUserName = user.userName;
+            userParams.CurrentUserName = user.UserName;
 
             if (string.IsNullOrEmpty(userParams.Gender))
                 userParams.Gender = user.Gender == "male" ? "female" : "male";
@@ -88,7 +88,7 @@ namespace FriendsApi.Controllers
             if (await _userRepository.SaveAllAsync())
             {
                 // return _mapper.Map<PhotoDto>(photo);
-                return CreatedAtRoute("GetUser", new {userName=user.userName}, _mapper.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUser", new {userName=user.UserName }, _mapper.Map<PhotoDto>(photo));
 
             }
             return BadRequest("Problem Adding photo");

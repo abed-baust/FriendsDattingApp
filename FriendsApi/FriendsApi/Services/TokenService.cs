@@ -23,7 +23,7 @@ namespace FriendsApi.Services
             var claims = new List<Claim>
            {
                new Claim(JwtRegisteredClaimNames.NameId,user.Id.ToString()),
-               new Claim(JwtRegisteredClaimNames.UniqueName,user.userName),
+               new Claim(JwtRegisteredClaimNames.UniqueName,user.UserName),
            };
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);
 

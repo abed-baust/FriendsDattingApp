@@ -170,6 +170,9 @@ C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Auto
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\CloudinaryDotNet.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Humanizer.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -178,6 +181,8 @@ C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Micr
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Identity.Client.dll
@@ -225,8 +230,3 @@ C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\obj\Debug\net5.0\refi
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\obj\Debug\net5.0\FriendsApi.pdb
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\obj\Debug\net5.0\FriendsApi.genruntimeconfig.cache
 C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\obj\Debug\net5.0\ref\FriendsApi.dll
-C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
-C:\Users\Local Admin\Desktop\Friends\FriendsApi\FriendsApi\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll

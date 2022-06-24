@@ -25,7 +25,7 @@ namespace FriendsApi.Data
 
         public async Task<MemberDto> GetMemberAsync(string userName)
         {
-            return await _context.Users.Where(x => x.userName == userName)
+            return await _context.Users.Where(x => x.UserName == userName)
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }
@@ -33,7 +33,7 @@ namespace FriendsApi.Data
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
             var query = _context.Users.AsQueryable();
-            query = query.Where(u => u.userName != userParams.CurrentUserName);
+            query = query.Where(u => u.UserName != userParams.CurrentUserName);
             query = query.Where(u=> u.Gender == userParams.Gender);
 
             var minDob = DateTime.Today.AddYears(-userParams.MaxAge-1);
@@ -62,7 +62,7 @@ namespace FriendsApi.Data
         {
             return await _context.Users
                 .Include(p=>p.Photos)
-                .SingleOrDefaultAsync(x => x.userName == reqUserName);
+                .SingleOrDefaultAsync(x => x.UserName == reqUserName);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()

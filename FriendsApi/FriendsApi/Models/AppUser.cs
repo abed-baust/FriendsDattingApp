@@ -7,10 +7,7 @@ namespace FriendsApi.Models
 {
     public class AppUser : IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string userName { get; set; }
-        public byte[] passwordHash { get; set; }
-        public byte[] passwordSalt { get; set; }
+
         public DateTime DateOfBirth { get; set; }
         public string KnownAs { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;

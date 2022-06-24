@@ -30,7 +30,7 @@ namespace FriendsApi.Controllers
             var sourceUser = await _likesRepository.GetUserWithLikes(sourceUserId);
 
             if(likedUser == null) return NotFound();
-            if (sourceUser.userName == userName) return BadRequest("You cannot like your profile.");
+            if (sourceUser.UserName == userName) return BadRequest("You cannot like your profile.");
             var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
             if (userLike!=null) return BadRequest("You already like this user.");
 

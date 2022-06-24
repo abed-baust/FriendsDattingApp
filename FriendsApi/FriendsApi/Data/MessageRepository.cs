@@ -47,11 +47,11 @@ namespace FriendsApi.Data
                 .AsQueryable();
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.Recipient.userName == messageParams.UserName 
+                "Inbox" => query.Where(u => u.Recipient.UserName == messageParams.UserName 
                 && u.RecipientDeleted==false),
-                "Outbox" => query.Where(u => u.Sender.userName == messageParams.UserName 
+                "Outbox" => query.Where(u => u.Sender.UserName == messageParams.UserName 
                 && u.SenderDeleted==false),
-                _ => query.Where(u => u.Recipient.userName == messageParams.UserName
+                _ => query.Where(u => u.Recipient.UserName == messageParams.UserName
                  && u.DateRead == null && u.RecipientDeleted==false)
             };
 
@@ -66,18 +66,18 @@ namespace FriendsApi.Data
             var messages = await _context.Messages
                 .Include(u => u.Sender).ThenInclude(p => p.Photos)
                 .Include(u => u.Recipient).ThenInclude(p => p.Photos)
-                .Where(m => m.Recipient.userName == currentUserName
+                .Where(m => m.Recipient.UserName == currentUserName
                 && m.RecipientDeleted==false
-                && m.Sender.userName == recipientUserName
-                || m.Recipient.userName == recipientUserName
-                && m.Sender.userName == currentUserName
+                && m.Sender.UserName == recipientUserName
+                || m.Recipient.UserName == recipientUserName
+                && m.Sender.UserName == currentUserName
                 && m.SenderDeleted==false
 
                 ).OrderBy(m => m.MessageSent)
                 .ToListAsync();
 
             var unreadMessages = messages.Where(m => m.DateRead == null
-            && m.Recipient.userName == currentUserName).ToList();
+            && m.Recipient.UserName == currentUserName).ToList();
 
             if(unreadMessages.Any())
             {
