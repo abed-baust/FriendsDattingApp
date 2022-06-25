@@ -29,8 +29,8 @@ namespace FriendsApi.Controllers
             _photoService = photoService;
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery]UserParams userParams)
         {
             var user = await _userRepository.GetUserByNameAsync(User.GetUserName());
@@ -46,7 +46,7 @@ namespace FriendsApi.Controllers
         }
 
         //api//users/3
-        //[Authorize]
+        [Authorize (Roles = "Member")]
         [HttpGet("{userName}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string userName)
         {
